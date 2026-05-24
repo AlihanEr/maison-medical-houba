@@ -1,51 +1,51 @@
 import Link from "next/link";
+import Logo from "./Logo";
+import { getDict } from "@/lib/i18n-server";
 
-export default function Footer() {
+export default async function Footer() {
+  const d = await getDict();
   return (
     <footer>
       <div className="container">
         <div className="footer-grid">
           <div>
             <Link href="/" className="brand">
-              <div className="brand-mark" style={{ background: "linear-gradient(135deg,#84b6ff,#2266e0)" }}>H</div>
+              <Logo size={44} background="linear-gradient(135deg, #84b6ff, #2266e0)" />
               <div className="brand-text">
                 <strong style={{ color: "#fff" }}>Maison Médicale Houba</strong>
                 <span style={{ color: "#84b6ff" }}>De Wand · Laeken</span>
               </div>
             </Link>
             <p style={{ marginTop: 18, maxWidth: 320, fontSize: 14, lineHeight: 1.6 }}>
-              Une asbl ancrée dans le quartier Mutsaard – De Wand, au service d'une médecine globale, équitable et solidaire.
+              {d.footer.tagline}
             </p>
           </div>
           <div>
-            <h4>Nous trouver</h4>
+            <h4>{d.footer.h1}</h4>
             <ul>
-              <li>48 Avenue de la Brise</li>
-              <li>1020 Laeken, Bruxelles</li>
-              <li style={{ marginTop: 14, color: "#b6d4ff" }}>Bientôt à Wemmel</li>
+              {d.footer.findItems.map((i) => <li key={i}>{i}</li>)}
+              <li style={{ marginTop: 14, color: "#b6d4ff" }}>{d.footer.soonWemmel}</li>
             </ul>
           </div>
           <div>
-            <h4>Pages</h4>
+            <h4>{d.footer.h2}</h4>
             <ul>
-              <li><Link href="/jobs">Carrières</Link></li>
-              <li><Link href="/#services">Soins</Link></li>
-              <li><Link href="/#mission">Mission</Link></li>
-              <li><Link href="/admin/login">Espace admin</Link></li>
+              <li><Link href="/jobs">{d.footer.pages.careers}</Link></li>
+              <li><Link href="/#services">{d.footer.pages.care}</Link></li>
+              <li><Link href="/#mission">{d.footer.pages.mission}</Link></li>
+              <li><Link href="/admin/login">{d.footer.pages.admin}</Link></li>
             </ul>
           </div>
           <div>
-            <h4>Contact</h4>
+            <h4>{d.footer.h3}</h4>
             <ul>
-              <li>02 270 37 44</li>
-              <li>0488 866 405</li>
-              <li>Lun – Ven · 9h – 18h</li>
+              {d.footer.contactItems.map((i) => <li key={i}>{i}</li>)}
             </ul>
           </div>
         </div>
         <div className="footer-bottom">
-          <span>© 2026 Maison Médicale Houba De Wand asbl</span>
-          <span>Conçu avec ♥ à Laeken</span>
+          <span>{d.footer.bottomLeft}</span>
+          <span>{d.footer.bottomRight}</span>
         </div>
       </div>
     </footer>

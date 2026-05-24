@@ -1,121 +1,144 @@
+import Logo from "./Logo";
+
+/**
+ * Hero animation v2 — concentric rotating arcs, pulse waves emanating from
+ * a central HOUBA logo, plus three live medical chips orbiting at the edges.
+ * Pure SVG + CSS keyframes, no client JS.
+ */
 export default function HeroAnimation() {
   return (
     <div className="hero-anim" aria-hidden="true">
-      <svg viewBox="0 0 520 520" xmlns="http://www.w3.org/2000/svg">
+      <svg viewBox="0 0 540 540" xmlns="http://www.w3.org/2000/svg" className="hero-anim-svg">
         <defs>
-          <linearGradient id="ringGrad" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stopColor="#4d8df6" />
-            <stop offset="100%" stopColor="#0e419b" />
+          <radialGradient id="haloGrad" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stopColor="#4d8df6" stopOpacity="0.35" />
+            <stop offset="60%" stopColor="#4d8df6" stopOpacity="0.08" />
+            <stop offset="100%" stopColor="#4d8df6" stopOpacity="0" />
+          </radialGradient>
+          <linearGradient id="arcGrad1" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stopColor="#84b6ff" />
+            <stop offset="100%" stopColor="#1554c4" />
           </linearGradient>
-          <linearGradient id="crossGrad" x1="0" y1="0" x2="0" y2="1">
+          <linearGradient id="arcGrad2" x1="1" y1="0" x2="0" y2="1">
             <stop offset="0%" stopColor="#2266e0" />
-            <stop offset="100%" stopColor="#0c3479" />
+            <stop offset="100%" stopColor="#0a2660" />
           </linearGradient>
-          <filter id="glow">
-            <feGaussianBlur stdDeviation="6" result="b" />
-            <feMerge>
-              <feMergeNode in="b" />
-              <feMergeNode in="SourceGraphic" />
-            </feMerge>
-          </filter>
+          <linearGradient id="dotGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="#84b6ff" />
+            <stop offset="100%" stopColor="#1554c4" />
+          </linearGradient>
         </defs>
 
-        {/* Outer pulse rings */}
-        <circle cx="260" cy="260" r="240" fill="none" stroke="url(#ringGrad)" strokeWidth="1.5" opacity="0.2">
-          <animate attributeName="r" values="220;240;220" dur="6s" repeatCount="indefinite" />
-          <animate attributeName="opacity" values="0.1;0.25;0.1" dur="6s" repeatCount="indefinite" />
-        </circle>
-        <circle cx="260" cy="260" r="200" fill="none" stroke="url(#ringGrad)" strokeWidth="1.5" opacity="0.3">
-          <animate attributeName="r" values="180;200;180" dur="5s" repeatCount="indefinite" />
-        </circle>
-        <circle cx="260" cy="260" r="160" fill="none" stroke="url(#ringGrad)" strokeWidth="1.5" opacity="0.5">
-          <animate attributeName="r" values="140;160;140" dur="4s" repeatCount="indefinite" />
-        </circle>
+        {/* Ambient halo */}
+        <circle cx="270" cy="270" r="270" fill="url(#haloGrad)" />
 
-        {/* Inner glass disc */}
-        <circle cx="260" cy="260" r="130" fill="#fff" opacity="0.9" />
-        <circle cx="260" cy="260" r="130" fill="none" stroke="#d9eaff" strokeWidth="2" />
+        {/* Expanding pulse rings */}
+        <g className="pulse-rings">
+          <circle cx="270" cy="270" r="100" fill="none" stroke="#2266e0" strokeWidth="2" opacity="0.6" />
+          <circle cx="270" cy="270" r="100" fill="none" stroke="#2266e0" strokeWidth="2" opacity="0.4" />
+          <circle cx="270" cy="270" r="100" fill="none" stroke="#2266e0" strokeWidth="2" opacity="0.3" />
+        </g>
 
-        {/* Heartbeat (ECG) line */}
-        <g transform="translate(140, 260)">
+        {/* Outer rotating arc — clockwise */}
+        <g className="arc-spin-cw">
+          <circle cx="270" cy="270" r="230" fill="none" stroke="#d9eaff" strokeWidth="1" />
           <path
-            d="M0 0 L40 0 L55 -25 L70 35 L85 -45 L100 25 L115 0 L155 0 L170 -15 L185 15 L240 0"
+            d="M 270 40 A 230 230 0 0 1 462 174"
             fill="none"
-            stroke="url(#crossGrad)"
-            strokeWidth="3.5"
+            stroke="url(#arcGrad1)"
+            strokeWidth="4"
             strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeDasharray="500"
-            strokeDashoffset="500"
-            filter="url(#glow)"
-          >
-            <animate attributeName="stroke-dashoffset" from="500" to="-500" dur="3.5s" repeatCount="indefinite" />
-          </path>
-          {/* Trailing dot */}
-          <circle r="6" fill="#2266e0">
-            <animateMotion
-              dur="3.5s"
-              repeatCount="indefinite"
-              path="M0 0 L40 0 L55 -25 L70 35 L85 -45 L100 25 L115 0 L155 0 L170 -15 L185 15 L240 0"
-            />
-          </circle>
+          />
+          <circle cx="462" cy="174" r="7" fill="url(#dotGrad)" />
+          <circle cx="270" cy="40" r="5" fill="#84b6ff" />
         </g>
 
-        {/* Medical Cross with heart pulse */}
-        <g transform="translate(260,260)">
-          <g>
-            <rect x="-18" y="-58" width="36" height="116" rx="8" fill="url(#crossGrad)" opacity="0.92" />
-            <rect x="-58" y="-18" width="116" height="36" rx="8" fill="url(#crossGrad)" opacity="0.92" />
-            <animateTransform attributeName="transform" type="scale" values="1;1.08;1" dur="1.4s" repeatCount="indefinite" />
-          </g>
+        {/* Mid rotating arc — counter-clockwise */}
+        <g className="arc-spin-ccw">
+          <circle cx="270" cy="270" r="185" fill="none" stroke="#d9eaff" strokeWidth="1" />
+          <path
+            d="M 270 85 A 185 185 0 0 0 85 270"
+            fill="none"
+            stroke="url(#arcGrad2)"
+            strokeWidth="4"
+            strokeLinecap="round"
+          />
+          <circle cx="85" cy="270" r="6" fill="#2266e0" />
         </g>
 
-        {/* Orbiting micro-icons */}
-        <g>
-          <animateTransform attributeName="transform" type="rotate" from="0 260 260" to="360 260 260" dur="40s" repeatCount="indefinite" />
-          {/* Pill */}
-          <g transform="translate(260, 60)">
-            <rect x="-18" y="-9" width="36" height="18" rx="9" fill="#fff" stroke="#2266e0" strokeWidth="2" />
-            <line x1="0" y1="-9" x2="0" y2="9" stroke="#2266e0" strokeWidth="2" />
-          </g>
-          {/* Stethoscope dot */}
-          <circle cx="460" cy="260" r="10" fill="#fff" stroke="#2266e0" strokeWidth="2" />
-          {/* Plus */}
-          <g transform="translate(260, 460)">
-            <rect x="-3" y="-10" width="6" height="20" fill="#2266e0" />
-            <rect x="-10" y="-3" width="20" height="6" fill="#2266e0" />
-          </g>
-          {/* Heart */}
-          <g transform="translate(60, 260)">
-            <path d="M0 -6 C -8 -16, -20 -8, 0 8 C 20 -8, 8 -16, 0 -6 Z" fill="#2266e0" />
-          </g>
+        {/* Inner dashed orbit */}
+        <g className="arc-spin-slow">
+          <circle cx="270" cy="270" r="145" fill="none" stroke="#b6d4ff" strokeWidth="1.5" strokeDasharray="3 8" />
         </g>
 
-        {/* Decorative arcs */}
-        <path d="M 60 260 A 200 200 0 0 1 460 260" fill="none" stroke="#b6d4ff" strokeWidth="1" strokeDasharray="2 6" opacity="0.6" />
-        <path d="M 460 260 A 200 200 0 0 1 60 260" fill="none" stroke="#b6d4ff" strokeWidth="1" strokeDasharray="2 6" opacity="0.6" />
+        {/* Tick marks on outer ring */}
+        <g className="ticks">
+          {Array.from({ length: 24 }, (_, i) => {
+            const angle = (i * 360) / 24;
+            const rad = (angle * Math.PI) / 180;
+            const isMajor = i % 6 === 0;
+            const r1 = 245;
+            const r2 = isMajor ? 258 : 252;
+            const x1 = 270 + Math.cos(rad) * r1;
+            const y1 = 270 + Math.sin(rad) * r1;
+            const x2 = 270 + Math.cos(rad) * r2;
+            const y2 = 270 + Math.sin(rad) * r2;
+            return (
+              <line
+                key={i}
+                x1={x1}
+                y1={y1}
+                x2={x2}
+                y2={y2}
+                stroke="#b6d4ff"
+                strokeWidth={isMajor ? 2 : 1}
+                strokeLinecap="round"
+              />
+            );
+          })}
+        </g>
+
+        {/* Center glass disc */}
+        <circle cx="270" cy="270" r="108" fill="#ffffff" />
+        <circle cx="270" cy="270" r="108" fill="none" stroke="#d9eaff" strokeWidth="2" />
+
+        {/* Subtle scanning beam across disc */}
+        <g style={{ clipPath: "circle(108px at 270px 270px)" }} className="scan-beam">
+          <rect x="120" y="265" width="300" height="2" fill="#84b6ff" opacity="0.5" />
+        </g>
       </svg>
 
-      {/* Floating status cards */}
-      <div className="hero-card-float c1">
-        <span className="dot" />
+      {/* Centered logo (rendered as HTML so SVG remains generic & accessible) */}
+      <div className="hero-logo-wrap">
+        <Logo size={150} rounded={28} />
+      </div>
+
+      {/* Floating live-data chips */}
+      <div className="metric-chip m1">
+        <span className="chip-dot dot-green" />
         <div>
-          <div style={{ fontSize: 11, color: "#0a2660", opacity: 0.6, textTransform: "uppercase", letterSpacing: "0.1em" }}>Patient·e</div>
-          <div>Suivi actif</div>
+          <div className="chip-label">FRÉQUENCE</div>
+          <div className="chip-value">
+            72 <small>bpm</small>
+          </div>
         </div>
       </div>
-      <div className="hero-card-float c2">
-        <span style={{ fontSize: 18 }}>💙</span>
+      <div className="metric-chip m2">
+        <span className="chip-dot dot-blue" />
         <div>
-          <div style={{ fontSize: 11, color: "#0a2660", opacity: 0.6, textTransform: "uppercase", letterSpacing: "0.1em" }}>Rythme</div>
-          <div>72 bpm</div>
+          <div className="chip-label">SUIVI ACTIF</div>
+          <div className="chip-value">
+            312 <small>pat.</small>
+          </div>
         </div>
       </div>
-      <div className="hero-card-float c3">
-        <span style={{ fontSize: 18 }}>🩺</span>
+      <div className="metric-chip m3">
+        <span className="chip-dot dot-amber" />
         <div>
-          <div style={{ fontSize: 11, color: "#0a2660", opacity: 0.6, textTransform: "uppercase", letterSpacing: "0.1em" }}>Équipe</div>
-          <div>5 métiers</div>
+          <div className="chip-label">ÉQUIPE</div>
+          <div className="chip-value">
+            5 <small>métiers</small>
+          </div>
         </div>
       </div>
     </div>

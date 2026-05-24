@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import Logo from "@/components/Logo";
 
 export default function LoginForm() {
   const router = useRouter();
@@ -38,7 +39,7 @@ export default function LoginForm() {
   return (
     <div className="login-page">
       <div className="login-card">
-        <div className="login-mark">H</div>
+        <div style={{ marginBottom: 24 }}><Logo size={56} rounded={16} /></div>
         <h1>Espace admin</h1>
         <p className="sub">Maison Médicale Houba — accès réservé.</p>
 

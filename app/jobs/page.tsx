@@ -2,21 +2,21 @@ import Link from "next/link";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import { listJobs } from "@/lib/jobs";
+import { getDict } from "@/lib/i18n-server";
 
 export const dynamic = "force-dynamic";
 
 export default async function JobsPage() {
   const jobs = await listJobs();
+  const d = await getDict();
   return (
     <>
       <Nav />
       <header className="jobs-hero">
         <div className="container">
-          <span className="eyebrow">Carrières</span>
-          <h1>Travaillez avec <em>nous</em>.</h1>
-          <p>
-            Rejoignez une équipe pluridisciplinaire qui place l'humain au cœur des soins. Cadre lumineux, atmosphère solidaire, autonomie soutenue.
-          </p>
+          <span className="eyebrow">{d.jobs.eyebrow}</span>
+          <h1>{d.jobs.titleA}<em>{d.jobs.titleAccent}</em>.</h1>
+          <p>{d.jobs.lead}</p>
         </div>
       </header>
 
@@ -24,9 +24,9 @@ export default async function JobsPage() {
         <div className="container">
           {jobs.length === 0 ? (
             <div className="empty-state">
-              <h3>Aucune offre actuellement</h3>
-              <p>Revenez bientôt — ou contactez-nous spontanément à jobmmhouba@gmail.com</p>
-              <a href="mailto:jobmmhouba@gmail.com" className="btn btn-primary">Candidature spontanée</a>
+              <h3>{d.jobs.empty.title}</h3>
+              <p>{d.jobs.empty.desc}</p>
+              <a href="mailto:jobmmhouba@gmail.com" className="btn btn-primary">{d.jobs.empty.cta}</a>
             </div>
           ) : (
             <div className="jobs-grid">
@@ -38,7 +38,7 @@ export default async function JobsPage() {
                   </div>
                   <h3>{j.title}</h3>
                   <p>{j.summary}</p>
-                  <span className="more">Voir l'offre →</span>
+                  <span className="more">{d.jobs.more}</span>
                 </Link>
               ))}
             </div>

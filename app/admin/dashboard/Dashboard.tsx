@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import Logo from "@/components/Logo";
 import type { Job } from "@/lib/jobs";
 
 type FormState = {
@@ -130,7 +131,7 @@ export default function Dashboard({ initialJobs }: { initialJobs: Job[] }) {
     <div className="admin-shell">
       <header className="admin-topbar">
         <div className="brand">
-          <div className="brand-mark">H</div>
+          <Logo size={40} />
           <div className="brand-text">
             <strong>Admin · Houba</strong>
             <span>Tableau de bord</span>
