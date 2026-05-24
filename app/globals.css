@@ -557,29 +557,41 @@ footer ul a:hover { color: var(--blue-200); }
 .hamburger-bars.is-open span:nth-child(3) { top: 6px; transform: rotate(-45deg); }
 
 .mobile-panel {
-  position: fixed; inset: 0; z-index: 200;
+  position: fixed;
+  top: 0; right: 0; bottom: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  z-index: 9999;
   pointer-events: none; visibility: hidden;
 }
 .mobile-panel.is-open { pointer-events: auto; visibility: visible; }
 .mobile-panel-backdrop {
   position: absolute; inset: 0;
-  background: rgba(10, 26, 53, 0.4);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
+  background: rgba(10, 26, 53, 0.45);
   opacity: 0; transition: opacity .25s ease;
 }
 .mobile-panel.is-open .mobile-panel-backdrop { opacity: 1; }
 .mobile-panel-inner {
-  position: absolute; top: 0; right: 0; bottom: 0;
+  position: absolute; top: 0; right: 0;
+  height: 100%;
   width: min(86vw, 360px);
   background: var(--white);
-  padding: 80px 28px 32px;
+  padding: 24px 24px 28px;
   box-shadow: -20px 0 60px -10px rgba(10,38,96,0.25);
   transform: translateX(100%); transition: transform .3s ease;
-  display: flex; flex-direction: column; gap: 28px;
+  display: flex; flex-direction: column; gap: 24px;
   overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 .mobile-panel.is-open .mobile-panel-inner { transform: translateX(0); }
+.mobile-panel-close {
+  align-self: flex-end;
+  width: 40px; height: 40px; border-radius: 10px;
+  background: var(--blue-50); border: none; color: var(--blue-900);
+  display: grid; place-items: center; cursor: pointer;
+}
+.mobile-panel-close:hover { background: var(--blue-100); }
 .mobile-nav-list { list-style: none; display: flex; flex-direction: column; gap: 4px; }
 .mobile-nav-list a {
   display: flex; align-items: center; justify-content: space-between; gap: 12px;
