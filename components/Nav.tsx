@@ -23,12 +23,12 @@ export default async function Nav() {
           <li><Link href="/#contact">{d.nav.contact}</Link></li>
         </ul>
         <div className="nav-actions">
-          <LocaleSwitcher current={locale} />
           <Link href="/jobs" className="btn btn-careers">
             {d.nav.careers}
             <span className="nav-badge">{d.nav.careersBadge}</span>
           </Link>
           <Link href="/#contact" className="btn btn-primary">{d.nav.cta}</Link>
+          <LocaleSwitcher current={locale} />
         </div>
       </div>
     </nav>
