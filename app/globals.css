@@ -383,6 +383,18 @@ footer ul a:hover { color: var(--blue-200); }
 .banner { background: linear-gradient(90deg, var(--blue-600), var(--blue-800)); color: var(--white); padding: 10px; text-align: center; font-size: 13px; font-weight: 500; }
 .banner strong { font-weight: 700; }
 
+/* Clinic-scene illustration strip */
+.scene-section { padding: 20px 0 80px; }
+.clinic-scene {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--line);
+  aspect-ratio: 1400 / 520;
+  position: relative;
+}
+.clinic-scene-svg { width: 100%; height: 100%; display: block; }
+
 /* ===== JOBS ===== */
 .jobs-hero { padding: 80px 0 40px; position: relative; }
 .jobs-hero h1 { font-size: clamp(44px, 5.5vw, 68px); line-height: 1.05; margin-bottom: 16px; font-weight: 300; }
