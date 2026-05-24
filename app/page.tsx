@@ -1,7 +1,6 @@
 import Link from "next/link";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
-import ClinicScene from "@/components/ClinicScene";
 import { getDict } from "@/lib/i18n-server";
 import { getSettings } from "@/lib/settings";
 
@@ -134,7 +133,7 @@ export default async function Home() {
         </div>
       </header>
 
-      <section className="stats" style={{ padding: "0 0 60px" }}>
+      <section className="stats" style={{ padding: "0 0 80px" }}>
         <div className="container">
           <div className="stats-grid">
             <div className="stat"><div className="stat-num">14<em>+</em></div><div className="stat-label">{d.stats.langs}</div></div>
@@ -142,12 +141,6 @@ export default async function Home() {
             <div className="stat"><div className="stat-num">2</div><div className="stat-label">{d.stats.branches}</div></div>
             <div className="stat"><div className="stat-num">100<em>%</em></div><div className="stat-label">{d.stats.conventioned}</div></div>
           </div>
-        </div>
-      </section>
-
-      <section className="scene-section">
-        <div className="container">
-          <ClinicScene />
         </div>
       </section>
 
