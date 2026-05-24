@@ -45,6 +45,9 @@ export default async function Home() {
 
   return (
     <>
+      <div className="banner">
+        {d.banner} <strong>{d.bannerStrong}</strong>
+      </div>
       <Nav />
 
       <header className="hero">
@@ -54,10 +57,6 @@ export default async function Home() {
         </div>
         <div className="container hero-inner">
           <div>
-            <div className="news-pill" role="status">
-              <span className="news-tag">{d.banner}</span>
-              <span className="news-text">{d.bannerStrong}</span>
-            </div>
             <span className="eyebrow">{d.hero.eyebrow}</span>
             <h1>
               {d.hero.titleA}
