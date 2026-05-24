@@ -535,15 +535,219 @@ footer ul a:hover { color: var(--blue-200); }
 }
 .status-pill.ok { background: rgba(46,204,113,0.12); color: #1e7f4d; }
 
-/* ===== Responsive ===== */
+/* ===== Hamburger + mobile panel (visible only on mobile breakpoints) ===== */
+.hamburger {
+  display: none;
+  align-items: center; justify-content: center;
+  width: 44px; height: 44px; border-radius: 12px;
+  background: transparent; border: 1px solid var(--line);
+  cursor: pointer; padding: 0;
+}
+.hamburger:hover { background: var(--blue-50); }
+.hamburger-bars { position: relative; width: 20px; height: 14px; display: inline-block; }
+.hamburger-bars span {
+  position: absolute; left: 0; right: 0; height: 2px; border-radius: 2px;
+  background: var(--blue-900); transition: transform .25s ease, opacity .2s ease, top .25s ease;
+}
+.hamburger-bars span:nth-child(1) { top: 0; }
+.hamburger-bars span:nth-child(2) { top: 6px; }
+.hamburger-bars span:nth-child(3) { top: 12px; }
+.hamburger-bars.is-open span:nth-child(1) { top: 6px; transform: rotate(45deg); }
+.hamburger-bars.is-open span:nth-child(2) { opacity: 0; }
+.hamburger-bars.is-open span:nth-child(3) { top: 6px; transform: rotate(-45deg); }
+
+.mobile-panel {
+  position: fixed; inset: 0; z-index: 200;
+  pointer-events: none; visibility: hidden;
+}
+.mobile-panel.is-open { pointer-events: auto; visibility: visible; }
+.mobile-panel-backdrop {
+  position: absolute; inset: 0;
+  background: rgba(10, 26, 53, 0.4);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  opacity: 0; transition: opacity .25s ease;
+}
+.mobile-panel.is-open .mobile-panel-backdrop { opacity: 1; }
+.mobile-panel-inner {
+  position: absolute; top: 0; right: 0; bottom: 0;
+  width: min(86vw, 360px);
+  background: var(--white);
+  padding: 80px 28px 32px;
+  box-shadow: -20px 0 60px -10px rgba(10,38,96,0.25);
+  transform: translateX(100%); transition: transform .3s ease;
+  display: flex; flex-direction: column; gap: 28px;
+  overflow-y: auto;
+}
+.mobile-panel.is-open .mobile-panel-inner { transform: translateX(0); }
+.mobile-nav-list { list-style: none; display: flex; flex-direction: column; gap: 4px; }
+.mobile-nav-list a {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 14px 12px; border-radius: 10px;
+  font-size: 17px; font-weight: 600; color: var(--blue-900);
+}
+.mobile-nav-list a:hover, .mobile-nav-list a:active { background: var(--blue-50); }
+.mobile-careers { color: var(--blue-700) !important; }
+.mobile-cta { width: 100%; justify-content: center; padding: 14px 22px; font-size: 15px; }
+
+/* ===== Responsive breakpoints ===== */
 @media (max-width: 960px) {
-  .hero-inner { grid-template-columns: 1fr; }
-  .hero-anim { max-width: 380px; margin: 0 auto; }
-  .stats-grid { grid-template-columns: repeat(2,1fr); }
-  .services-grid, .quotes-grid { grid-template-columns: 1fr; }
-  .mission { grid-template-columns: 1fr; padding: 40px 30px; gap: 30px; }
-  .footer-grid { grid-template-columns: 1fr 1fr; gap: 30px; }
+  section { padding: 70px 0; }
+  .container { padding: 0 24px; }
+
+  /* Nav: hide desktop-only items, show hamburger */
+  .nav-inner { padding: 14px 24px; }
   .nav-links { display: none; }
+  .nav-only-desktop { display: none !important; }
+  .hamburger { display: inline-flex; }
+  .nav-actions { gap: 8px; }
+  .brand-text strong { font-size: 16px; }
+  .brand-text span { font-size: 9px; letter-spacing: 0.18em; }
+
+  /* Hero */
+  .hero { padding: 60px 0 80px; }
+  .hero-inner { grid-template-columns: 1fr; gap: 40px; }
+  .hero h1 { font-size: clamp(40px, 9vw, 60px); line-height: 1.05; }
+  .hero-lead { font-size: 17px; }
+  .hero-card { max-width: 100%; padding: 28px; }
+
+  /* Stats */
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .stat { padding: 32px 20px; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.1); }
+  .stat:nth-child(odd) { border-right: 1px solid rgba(255,255,255,0.1); }
+  .stat:nth-last-child(-n+2) { border-bottom: none; }
+  .stat-num { font-size: 44px; }
+
+  /* Services / team / quotes */
+  .services-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
+  .quotes-grid { grid-template-columns: 1fr; }
+  .service-card { padding: 24px; }
+  .service-card h3 { font-size: 20px; }
+
+  /* Mission */
+  .mission { grid-template-columns: 1fr; padding: 40px 28px; gap: 32px; }
+  .quote-block { padding: 32px; }
+  .quote-block p { font-size: 19px; }
+  .values-list { grid-template-columns: 1fr 1fr; gap: 10px; }
+
+  /* Testimonials */
+  .testimonials { padding: 60px 28px; }
+
+  /* CTA */
+  .cta-section { padding: 60px 24px; }
+  .phone-display { font-size: 26px; }
+
+  /* Footer */
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 36px; }
+
+  /* Section header */
+  .section-header { margin-bottom: 40px; }
+  .section-header h2 { font-size: clamp(30px, 6vw, 44px); }
+  .section-header p { font-size: 16px; }
+
+  /* Banner */
+  .banner { font-size: 12px; padding: 9px 16px; }
+
+  /* Admin */
+  .admin-container { padding: 28px 20px; }
+  .admin-topbar { padding: 14px 20px; flex-wrap: wrap; gap: 12px; }
+  .admin-tabs { width: 100%; overflow-x: auto; }
+  .admin-tab { white-space: nowrap; }
   .admin-jobs-table .row { grid-template-columns: 1fr; }
   .admin-jobs-table .row.head { display: none; }
+  .admin-jobs-table .row .actions { justify-content: flex-start; flex-wrap: wrap; }
+  .settings-panel .fset { padding: 18px 18px 12px; }
+  .settings-panel .fset > div[style] { grid-template-columns: 1fr !important; }
+  .job-section { padding: 28px 20px; }
+  .job-section > div[style*="grid-template-columns"] { grid-template-columns: 1fr !important; }
+}
+
+@media (max-width: 560px) {
+  section { padding: 56px 0; }
+  .container { padding: 0 18px; }
+
+  .nav-inner { padding: 12px 18px; }
+  .brand-text { display: none; }
+  .nav-actions { gap: 6px; }
+
+  /* Hero */
+  .hero { padding: 40px 0 60px; }
+  .hero h1 { font-size: clamp(34px, 11vw, 44px); }
+  .hero-lead { font-size: 16px; }
+  .hero-actions .btn { width: 100%; justify-content: center; }
+  .hero-card { padding: 22px; border-radius: 20px; }
+  .hero-card h3 { font-size: 11px; }
+  .info-icon { width: 38px; height: 38px; }
+  .info-icon svg { width: 18px; height: 18px; }
+  .info-value { font-size: 14px; }
+
+  /* Stats — single column */
+  .stats-grid { grid-template-columns: 1fr; }
+  .stat { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.1); padding: 26px 20px; }
+  .stat:last-child { border-bottom: none; }
+  .stat:nth-child(odd) { border-right: none; }
+  .stat-num { font-size: 38px; }
+
+  /* Services single col */
+  .services-grid { grid-template-columns: 1fr; }
+
+  /* Mission */
+  .mission { padding: 32px 22px; }
+  .quote-block { padding: 26px 22px; }
+  .quote-block p { font-size: 17px; }
+  .values-list { grid-template-columns: 1fr; }
+
+  /* Testimonials */
+  .testimonials { padding: 50px 22px; border-radius: 22px; }
+  .quote { padding: 22px; }
+
+  /* CTA */
+  .cta-section { padding: 48px 20px; border-radius: 22px; }
+  .cta-section h2 { font-size: clamp(30px, 8vw, 40px); }
+  .phone-display { font-size: 22px; }
+  .phone-display small { font-size: 10px; }
+
+  /* Footer */
+  .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+  footer { padding: 60px 0 24px; }
+
+  /* Banner */
+  .banner { font-size: 11px; padding: 8px 14px; }
+
+  /* Section header */
+  .section-header h2 { font-size: clamp(28px, 8vw, 36px); }
+
+  /* Buttons full width by default to fit thumbs */
+  .btn { padding: 12px 20px; font-size: 14px; }
+
+  /* Eyebrow */
+  .eyebrow { font-size: 10px; padding: 6px 12px; }
+
+  /* Jobs grid */
+  .jobs-grid { grid-template-columns: 1fr; }
+  .job-card { padding: 26px 22px; }
+  .job-detail { padding: 40px 0 70px; }
+  .job-header { padding: 32px 22px; border-radius: 20px; }
+  .job-section { padding: 24px 20px; }
+  .job-apply { padding: 24px 20px; }
+
+  /* Admin login */
+  .login-card { padding: 32px 24px; }
+
+  /* Logo switcher menu pushes against edge */
+  .locale-menu { right: -8px; }
+}
+
+@media (max-width: 380px) {
+  .nav-actions .locale-btn { padding: 5px 8px; }
+  .hero h1 { font-size: 32px; }
+  .hero-card { padding: 18px; }
+  .stat-num { font-size: 34px; }
+}
+
+/* Touch-friendly defaults */
+@media (hover: none) and (pointer: coarse) {
+  .btn, .info-link, .nav-links a, .admin-tab { min-height: 44px; }
+  .info-link:hover { background: transparent; }
+  .info-link:active { background: var(--blue-50); }
 }
