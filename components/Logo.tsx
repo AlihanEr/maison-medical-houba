@@ -7,13 +7,15 @@ type Props = {
 };
 
 /**
- * HOUBA logo — stylised M + H + house silhouette in white on blue.
- * Reconstructed from the original brand mark.
+ * HOUBA logo — stylised M + H + house silhouette in white on a blue
+ * rounded rectangle. Two upright bars (serving as both the M legs and
+ * the H legs) with a deep V cut at the top between them and a peaked
+ * house silhouette inside the lower H opening.
  */
 export default function Logo({
   size = 44,
-  rounded = 14,
-  background = "linear-gradient(135deg, #2266e0 0%, #0e419b 100%)",
+  rounded = 12,
+  background = "linear-gradient(180deg, #2c8be0 0%, #1e6fcc 100%)",
   className,
   ariaLabel = "Maison Médicale Houba",
 }: Props) {
@@ -35,45 +37,47 @@ export default function Logo({
     >
       <svg
         viewBox="0 0 120 160"
-        width="68%"
-        height="68%"
+        width="72%"
+        height="72%"
         aria-hidden="true"
         focusable="false"
       >
-        {/* M + H fused: two tall verticals with peaked tops + a deep V cut between */}
+        {/* Outer M+H letterform in white */}
         <path
           d="
-            M 6 14
-            L 6 146
-            L 38 146
-            L 38 92
-            L 82 92
-            L 82 146
-            L 114 146
-            L 114 14
-            L 82 14
-            L 82 62
-            L 60 32
-            L 38 62
-            L 38 14
+            M 8 10
+            L 8 152
+            L 42 152
+            L 42 96
+            L 78 96
+            L 78 152
+            L 112 152
+            L 112 10
+            L 78 10
+            L 60 54
+            L 42 10
             Z
           "
           fill="#ffffff"
         />
-        {/* House silhouette inside the lower H crossbar */}
-        <g transform="translate(60 118)">
+        {/* Peaked house silhouette inside the lower H opening (in blue) */}
+        <g transform="translate(60 132)">
           <path
             d="
-              M 0 -16
-              L -18 0
-              L -16 0
-              L -16 16
-              L 16 16
-              L 16 0
-              L 18 0
+              M 0 -22
+              L -16 -6
+              L -13 -6
+              L -13 14
+              L -4 14
+              L -4 0
+              L 4 0
+              L 4 14
+              L 13 14
+              L 13 -6
+              L 16 -6
               Z
             "
-            fill="#2266e0"
+            fill="#1e6fcc"
           />
         </g>
       </svg>
