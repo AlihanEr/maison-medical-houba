@@ -2,6 +2,7 @@ import Link from "next/link";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import { getDict } from "@/lib/i18n-server";
+import { getSettings } from "@/lib/settings";
 
 const teamEmojis = ["👨‍⚕️", "🤸", "👩‍⚕️", "🤝", "🪪", "⚙️"];
 const testimonialInitials = ["A", "J", "Z"];
@@ -41,6 +42,7 @@ function ServiceIcon({ idx }: { idx: number }) {
 
 export default async function Home() {
   const d = await getDict();
+  const s = await getSettings();
 
   return (
     <>
@@ -50,7 +52,10 @@ export default async function Home() {
       <Nav />
 
       <header className="hero">
-        <div className="hero-bg" />
+        <div className="hero-bg"><span className="blob" /></div>
+        <div className="hero-particles" aria-hidden="true">
+          <span /><span /><span /><span /><span /><span /><span /><span /><span /><span />
+        </div>
         <div className="container hero-inner">
           <div>
             <span className="eyebrow">{d.hero.eyebrow}</span>
@@ -78,9 +83,9 @@ export default async function Home() {
               <div>
                 <div className="info-label">{d.practical.addressLabel}</div>
                 <div className="info-value">
-                  <strong>{d.practical.addressValue}</strong>
+                  <strong>{s.addressLine1}</strong>
                   <br />
-                  {d.practical.addressSub}
+                  {s.addressLine2}
                 </div>
               </div>
             </div>
@@ -94,9 +99,9 @@ export default async function Home() {
               <div>
                 <div className="info-label">{d.practical.hoursLabel}</div>
                 <div className="info-value">
-                  {d.practical.hoursValue}
+                  {s.hoursMain}
                   <br />
-                  <small style={{ color: "rgba(10,26,53,0.55)" }}>{d.practical.hoursSub}</small>
+                  <small style={{ color: "rgba(10,26,53,0.55)" }}>{s.hoursNote}</small>
                 </div>
               </div>
             </div>
@@ -109,7 +114,7 @@ export default async function Home() {
               <div>
                 <div className="info-label">{d.practical.phoneLabel}</div>
                 <div className="info-value">
-                  <strong>{d.practical.phoneValue}</strong> · {d.practical.phoneAlt}
+                  <strong>{s.phonePrimary}</strong> · {s.phoneSecondary}
                 </div>
               </div>
             </div>
@@ -221,12 +226,12 @@ export default async function Home() {
               {d.cta.lead}<strong>{d.cta.leadStrong1}</strong> · <strong>{d.cta.leadStrong2}</strong>.
             </p>
             <div style={{ display: "flex", gap: 14, justifyContent: "center", flexWrap: "wrap" }}>
-              <a href="tel:+3222703744" className="btn btn-primary">{d.cta.primary}</a>
+              <a href={`tel:${s.phonePrimary.replace(/\s+/g, "")}`} className="btn btn-primary">{d.cta.primary}</a>
               <Link href="/jobs" className="btn btn-ghost">{d.cta.ghost}</Link>
             </div>
             <div className="phone-display">
               <small>{d.cta.phoneCaption}</small>
-              {d.practical.phoneValue} · {d.practical.phoneAlt}
+              {s.phonePrimary} · {s.phoneSecondary}
             </div>
           </div>
         </div>

@@ -1,16 +1,18 @@
 import Link from "next/link";
 import Logo from "./Logo";
 import { getDict } from "@/lib/i18n-server";
+import { getSettings } from "@/lib/settings";
 
 export default async function Footer() {
   const d = await getDict();
+  const s = await getSettings();
   return (
     <footer>
       <div className="container">
         <div className="footer-grid">
           <div>
             <Link href="/" className="brand">
-              <Logo size={44} background="linear-gradient(135deg, #84b6ff, #2266e0)" />
+              <Logo size={44} background="linear-gradient(180deg, #4d8df6, #1554c4)" />
               <div className="brand-text">
                 <strong style={{ color: "#fff" }}>Maison Médicale Houba</strong>
                 <span style={{ color: "#84b6ff" }}>De Wand · Laeken</span>
@@ -23,7 +25,8 @@ export default async function Footer() {
           <div>
             <h4>{d.footer.h1}</h4>
             <ul>
-              {d.footer.findItems.map((i) => <li key={i}>{i}</li>)}
+              <li>{s.addressLine1}</li>
+              <li>{s.addressLine2}</li>
               <li style={{ marginTop: 14, color: "#b6d4ff" }}>{d.footer.soonWemmel}</li>
             </ul>
           </div>
@@ -39,7 +42,9 @@ export default async function Footer() {
           <div>
             <h4>{d.footer.h3}</h4>
             <ul>
-              {d.footer.contactItems.map((i) => <li key={i}>{i}</li>)}
+              <li>{s.phonePrimary}</li>
+              <li>{s.phoneSecondary}</li>
+              <li>{s.hoursMain}</li>
             </ul>
           </div>
         </div>

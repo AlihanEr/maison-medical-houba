@@ -5,6 +5,8 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Logo from "@/components/Logo";
 import type { Job } from "@/lib/jobs";
+import type { ClinicSettings } from "@/lib/settings";
+import SettingsPanel from "./SettingsPanel";
 
 type FormState = {
   title: string;
@@ -30,8 +32,9 @@ const EMPTY_FORM: FormState = {
   contactName: "HOUBA Ismaïl",
 };
 
-export default function Dashboard({ initialJobs }: { initialJobs: Job[] }) {
+export default function Dashboard({ initialJobs, initialSettings }: { initialJobs: Job[]; initialSettings: ClinicSettings }) {
   const router = useRouter();
+  const [tab, setTab] = useState<"jobs" | "settings">("jobs");
   const [jobs, setJobs] = useState<Job[]>(initialJobs);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [showForm, setShowForm] = useState(false);
@@ -148,6 +151,19 @@ export default function Dashboard({ initialJobs }: { initialJobs: Job[] }) {
       </header>
 
       <div className="admin-container">
+        <div className="admin-tabs">
+          <button type="button" className={`admin-tab ${tab === "jobs" ? "active" : ""}`} onClick={() => setTab("jobs")}>
+            Offres d'emploi <span className="tab-count">{jobs.length}</span>
+          </button>
+          <button type="button" className={`admin-tab ${tab === "settings" ? "active" : ""}`} onClick={() => setTab("settings")}>
+            Informations cliniques
+          </button>
+        </div>
+
+        {tab === "settings" && <SettingsPanel initial={initialSettings} />}
+
+        {tab === "jobs" && (
+          <>
         <div className="admin-header-row">
           <div>
             <h2>Offres d'emploi</h2>
@@ -296,6 +312,8 @@ export default function Dashboard({ initialJobs }: { initialJobs: Job[] }) {
               </div>
             ))}
           </div>
+        )}
+          </>
         )}
       </div>
     </div>
