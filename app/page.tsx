@@ -1,6 +1,8 @@
 import Link from "next/link";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
+import HeroSeal from "@/components/HeroSeal";
+import HeroECG from "@/components/HeroECG";
 import { getDict } from "@/lib/i18n-server";
 import { getSettings } from "@/lib/settings";
 
@@ -51,10 +53,8 @@ export default async function Home() {
       <Nav />
 
       <header className="hero">
-        <div className="hero-bg"><span className="blob" /></div>
-        <div className="hero-particles" aria-hidden="true">
-          <span /><span /><span /><span /><span /><span /><span /><span /><span /><span />
-        </div>
+        <div className="hero-bg" />
+        <HeroSeal />
         <div className="container hero-inner">
           <div>
             <span className="eyebrow">{d.hero.eyebrow}</span>
@@ -131,6 +131,7 @@ export default async function Home() {
             </a>
           </aside>
         </div>
+        <HeroECG />
       </header>
 
       <section className="stats" style={{ padding: "0 0 80px" }}>

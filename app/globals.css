@@ -135,73 +135,54 @@ a { color: inherit; text-decoration: none; }
 .btn-careers .nav-badge { margin-left: 0; }
 
 /* ===== HERO ===== */
-.hero { position: relative; padding: 80px 0 100px; overflow: hidden; isolation: isolate; }
+.hero { position: relative; padding: 80px 0 140px; overflow: hidden; isolation: isolate; }
 .hero-bg {
-  position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden;
-}
-/* Three aurora-style blobs that drift slowly */
-.hero-bg::before, .hero-bg::after, .hero-bg .blob {
-  content: ""; position: absolute; border-radius: 50%; filter: blur(70px);
-  will-change: transform;
-}
-.hero-bg::before {
-  width: 520px; height: 520px; top: -160px; right: -120px;
-  background: radial-gradient(circle, rgba(77,141,246,0.42), rgba(34,102,224,0));
-  animation: drift1 22s ease-in-out infinite alternate;
-}
-.hero-bg::after {
-  width: 460px; height: 460px; bottom: -180px; left: -120px;
-  background: radial-gradient(circle, rgba(132,182,255,0.45), rgba(132,182,255,0));
-  animation: drift2 28s ease-in-out infinite alternate;
-}
-.hero-bg .blob {
-  width: 380px; height: 380px; top: 30%; left: 35%;
-  background: radial-gradient(circle, rgba(14,65,155,0.22), rgba(14,65,155,0));
-  animation: drift3 34s ease-in-out infinite alternate;
-}
-@keyframes drift1 {
-  0%   { transform: translate(0, 0) scale(1); }
-  100% { transform: translate(-60px, 80px) scale(1.15); }
-}
-@keyframes drift2 {
-  0%   { transform: translate(0, 0) scale(1); }
-  100% { transform: translate(80px, -60px) scale(1.1); }
-}
-@keyframes drift3 {
-  0%   { transform: translate(0, 0) scale(0.9); }
-  100% { transform: translate(-50px, -40px) scale(1.05); }
+  position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background:
+    radial-gradient(ellipse 55% 60% at 88% 12%, rgba(132,182,255,0.18), transparent 60%),
+    radial-gradient(ellipse 50% 60% at 6% 92%, rgba(132,182,255,0.12), transparent 60%);
 }
 
-/* Drifting tiny particles (pure CSS dots) */
-.hero-particles {
-  position: absolute; inset: 0; z-index: 1; pointer-events: none; overflow: hidden;
+/* Editorial rotating seal */
+.hero-seal {
+  position: absolute;
+  top: 70px; right: 5%;
+  width: 200px; height: 200px;
+  z-index: 1; pointer-events: none;
+  opacity: 0.95;
 }
-.hero-particles span {
-  position: absolute; width: 6px; height: 6px; border-radius: 50%;
-  background: var(--blue-400); opacity: 0.35;
-  box-shadow: 0 0 12px rgba(77,141,246,0.6);
-  animation: floatUp linear infinite;
+.hero-seal svg { width: 100%; height: 100%; display: block; }
+.hero-seal-spin {
+  transform-origin: 100px 100px;
+  animation: sealSpin 38s linear infinite;
 }
-.hero-particles span:nth-child(1)  { left:  6%; bottom: -10px; animation-duration: 18s; animation-delay:  0s; }
-.hero-particles span:nth-child(2)  { left: 14%; bottom: -10px; animation-duration: 24s; animation-delay:  3s; width: 4px; height: 4px; }
-.hero-particles span:nth-child(3)  { left: 22%; bottom: -10px; animation-duration: 20s; animation-delay:  6s; width: 8px; height: 8px; opacity: 0.25; }
-.hero-particles span:nth-child(4)  { left: 30%; bottom: -10px; animation-duration: 26s; animation-delay:  1s; }
-.hero-particles span:nth-child(5)  { left: 42%; bottom: -10px; animation-duration: 22s; animation-delay:  9s; width: 5px; height: 5px; }
-.hero-particles span:nth-child(6)  { left: 54%; bottom: -10px; animation-duration: 30s; animation-delay:  4s; opacity: 0.2; width: 10px; height: 10px; }
-.hero-particles span:nth-child(7)  { left: 66%; bottom: -10px; animation-duration: 19s; animation-delay:  7s; }
-.hero-particles span:nth-child(8)  { left: 76%; bottom: -10px; animation-duration: 25s; animation-delay:  2s; width: 4px; height: 4px; }
-.hero-particles span:nth-child(9)  { left: 84%; bottom: -10px; animation-duration: 21s; animation-delay: 11s; }
-.hero-particles span:nth-child(10) { left: 92%; bottom: -10px; animation-duration: 28s; animation-delay:  5s; width: 6px; height: 6px; }
-@keyframes floatUp {
-  0%   { transform: translate(0, 0) scale(1);   opacity: 0; }
-  10%  { opacity: 0.4; }
-  50%  { transform: translate(40px, -45vh) scale(1.2); opacity: 0.5; }
-  90%  { opacity: 0.3; }
-  100% { transform: translate(-30px, -90vh) scale(0.8); opacity: 0; }
+@keyframes sealSpin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
 }
+
+/* Heartbeat ECG ribbon at bottom of hero */
+.hero-ecg {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 140px;
+  z-index: 1; pointer-events: none; overflow: hidden;
+}
+.hero-ecg svg { width: 100%; height: 100%; display: block; }
+.hero-ecg-trace {
+  stroke-dasharray: 1800;
+  stroke-dashoffset: 1800;
+  animation: ecgDraw 5.5s linear infinite;
+}
+@keyframes ecgDraw {
+  0%   { stroke-dashoffset: 1800; }
+  60%  { stroke-dashoffset: 0; }
+  100% { stroke-dashoffset: -1800; }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .hero-bg::before, .hero-bg::after, .hero-bg .blob,
-  .hero-particles span { animation: none; }
+  .hero-seal-spin, .hero-ecg-trace { animation: none; }
+  .hero-ecg-trace { stroke-dashoffset: 0; }
 }
 .hero-inner { position: relative; z-index: 3; display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 60px; align-items: center; }
 .eyebrow {
@@ -617,11 +598,13 @@ footer ul a:hover { color: var(--blue-200); }
   .brand-text span { font-size: 9px; letter-spacing: 0.18em; }
 
   /* Hero */
-  .hero { padding: 60px 0 80px; }
+  .hero { padding: 50px 0 110px; }
   .hero-inner { grid-template-columns: 1fr; gap: 40px; }
   .hero h1 { font-size: clamp(40px, 9vw, 60px); line-height: 1.05; }
   .hero-lead { font-size: 17px; }
   .hero-card { max-width: 100%; padding: 28px; }
+  .hero-seal { width: 130px; height: 130px; top: 30px; right: 16px; opacity: 0.7; }
+  .hero-ecg { height: 100px; }
 
   /* Stats — 3 items, stack vertically below 960px to avoid orphan */
   .stats-grid { grid-template-columns: 1fr; }
@@ -682,8 +665,10 @@ footer ul a:hover { color: var(--blue-200); }
   .nav-actions { gap: 6px; }
 
   /* Hero */
-  .hero { padding: 40px 0 60px; }
+  .hero { padding: 30px 0 90px; }
   .hero h1 { font-size: clamp(34px, 11vw, 44px); }
+  .hero-seal { width: 96px; height: 96px; top: 14px; right: 10px; opacity: 0.55; }
+  .hero-ecg { height: 80px; }
   .hero-lead { font-size: 16px; }
   .hero-actions .btn { width: 100%; justify-content: center; }
   .hero-card { padding: 22px; border-radius: 20px; }
