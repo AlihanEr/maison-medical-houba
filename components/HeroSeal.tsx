@@ -56,21 +56,6 @@ export default function HeroSeal() {
           <rect x="-5"  y="-22" width="10" height="44" rx="2" fill="#0e419b" />
           <rect x="-22" y="-5"  width="44" height="10" rx="2" fill="#0e419b" />
         </g>
-
-        {/* Year / location chips */}
-        <g transform="translate(100 178)">
-          <text
-            textAnchor="middle"
-            fill="#0e419b"
-            fontFamily="Manrope, sans-serif"
-            fontSize="8"
-            letterSpacing="2.2"
-            fontWeight="700"
-            opacity="0.65"
-          >
-            EST. 1020 LAEKEN
-          </text>
-        </g>
       </svg>
     </div>
   );
