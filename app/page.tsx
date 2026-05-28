@@ -136,7 +136,6 @@ export default async function Home() {
       <section className="stats" style={{ padding: "0 0 80px" }}>
         <div className="container">
           <div className="stats-grid">
-            <div className="stat"><div className="stat-num">14<em>+</em></div><div className="stat-label">{d.stats.langs}</div></div>
             <div className="stat"><div className="stat-num">5</div><div className="stat-label">{d.stats.jobs}</div></div>
             <div className="stat"><div className="stat-num">2</div><div className="stat-label">{d.stats.branches}</div></div>
             <div className="stat"><div className="stat-num">100<em>%</em></div><div className="stat-label">{d.stats.conventioned}</div></div>
