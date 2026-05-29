@@ -15,9 +15,22 @@ export default function HeroSeal() {
           />
         </defs>
 
+        {/* Expanding heartbeat rings */}
+        <g className="hero-seal-pulse">
+          <circle cx="100" cy="100" r="40" fill="none" stroke="#2266e0" strokeWidth="1.5" />
+          <circle cx="100" cy="100" r="40" fill="none" stroke="#2266e0" strokeWidth="1.5" />
+          <circle cx="100" cy="100" r="40" fill="none" stroke="#2266e0" strokeWidth="1.5" />
+        </g>
+
         {/* Outer thin ring */}
         <circle cx="100" cy="100" r="98" fill="none" stroke="#0e419b" strokeWidth="1.5" opacity="0.35" />
         <circle cx="100" cy="100" r="74"  fill="none" stroke="#0e419b" strokeWidth="1"   opacity="0.25" />
+
+        {/* Counter-orbiting tracker dot on the inner ring */}
+        <g className="hero-seal-orbit">
+          <circle cx="100" cy="26" r="3.5" fill="#2266e0" />
+          <circle cx="100" cy="26" r="6.5" fill="none" stroke="#2266e0" strokeWidth="1" opacity="0.4" />
+        </g>
 
         {/* Tick marks every 30deg on the outer ring */}
         {Array.from({ length: 12 }).map((_, i) => {
@@ -47,14 +60,16 @@ export default function HeroSeal() {
           </text>
         </g>
 
-        {/* Central composition: small cross + H mark */}
+        {/* Central composition: small cross */}
         <g transform="translate(100 100)">
           {/* Soft inner disc */}
           <circle r="40" fill="#ffffff" />
           <circle r="40" fill="none" stroke="#0e419b" strokeWidth="1" opacity="0.4" />
-          {/* Cross */}
-          <rect x="-5"  y="-22" width="10" height="44" rx="2" fill="#0e419b" />
-          <rect x="-22" y="-5"  width="44" height="10" rx="2" fill="#0e419b" />
+          {/* Cross — gentle heartbeat scale */}
+          <g className="hero-seal-cross">
+            <rect x="-5"  y="-22" width="10" height="44" rx="2" fill="#0e419b" />
+            <rect x="-22" y="-5"  width="44" height="10" rx="2" fill="#0e419b" />
+          </g>
         </g>
       </svg>
     </div>
